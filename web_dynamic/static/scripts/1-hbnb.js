@@ -1,17 +1,30 @@
-$(document).ready(function(){
-  let selected = []
-  $('input[type=checkbox]').change(function () {
+<<<<<<< HEAD
+$(() => {
+  const checkedAmenities = {};
+  let displayAmenities = [];
+  $('.amenities .popover input').change(function () {
     if ($(this).prop('checked')) {
-      selected.push($(this).attr('data-name'))
-    } else {
-      let unchecked = $(this).attr('data-name')
-      let idx = selected.indexOf(unchecked)
-      selected.splice(idx, 1)
+      checkedAmenities[$(this).attr('data-id')] = $(this).attr('data-name');
+    } else if (!$(this).prop('checked')) {
+      delete checkedAmenities[$(this).attr('data-id')];
     }
-  
-  if (selected.length !== 0) {
-    let seleced_in_txt = selected.join(", ")
-    $("#selected").text(seleced_in_txt)
-  }
-})
-})
+    displayAmenities = Object.values(checkedAmenities).sort();
+    if (displayAmenities.length != 0)
+      $('.amenities h4').text(displayAmenities.join(', '));
+    else
+      $('.amenities h4').html("&nbsp;");
+
+    // console.log(checkedAmenities);
+=======
+let amenitiesChecked = {};
+$(() => {
+  $('input[type=checkbox]').click(function () {
+    if (this.checked) {
+      amenitiesChecked[this.dataset.id] = this.dataset.name;
+    } else {
+      delete amenitiesChecked[this.dataset.id];
+    }
+    $('.amenities h4').text(Object.values(amenitiesChecked).join(', '));
+>>>>>>> cc2915ad9bec3ef385068c59ea0b45c2299ae4ba
+  });
+});
